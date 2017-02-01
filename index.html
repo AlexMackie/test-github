@@ -1,0 +1,92 @@
+<html>
+	<head>
+	<link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+
+		<script type="text/javascript" src="/socket.io/socket.io.js"></script>
+		<style type="text/css">
+			 * { margin: 0; padding: 0; box-sizing: border-box; }
+			 #messages {
+			 	margin-top: 10%;
+			 	color: white;
+			 	font-size: 100%;
+			 	font-family: 'Roboto', sans-serif;
+			 	background-color: #00E0FF;
+			 	width: 60%;
+			 	border-radius: 25px;
+			 	border-spacing: 20px;
+
+			 }
+		
+	input[type=submit] {
+    padding:5px 15px; 
+    background:#ccc; 
+    border:0 none;
+    cursor:pointer;
+    -webkit-border-radius: 5px;
+    border-radius: 5px; 
+}
+    input[type=text] {
+    margin-top: 10px;
+    padding:5px; 
+    border:2px solid #ccc; 
+    -webkit-border-radius: 5px;
+    border-radius: 5px;
+}
+
+	h1 {
+		font-size: 100%;
+		font-family: 'Roboto', sans-serif;
+	}
+
+	#header {
+		margin-top: 20px;
+		margin-left: 700px;
+	}
+
+	#footer {
+		margin-top: 450px;
+		margin-left: 700px;
+	}
+
+
+
+
+		</style>
+		<script type="text/javascript">
+		
+			var socket = io.connect();
+			
+			socket.on('connect', function() {
+				console.log("Connected");
+			});
+
+			// Receive from any event
+			socket.on('chatmessage', function (data) {
+				console.log(data);
+				document.getElementById('messages').innerHTML = "" + data + 
+  "" + document.getElementById('messages').innerHTML;
+			});
+			
+			var sendmessage = function(message) {
+				console.log("chatmessage: " + message);
+				socket.emit('chatmessage', message);
+			};
+
+	
+		</script>	
+	</head>
+ <body>
+ <div id="header">
+ <h1>a simple chat</h1>
+ </div>
+ <div id="messages">
+ </div>
+<center>
+ <input type="text" id="message" name="message">
+ <input type="submit" value="submit" onclick="sendmessage(document.getElementById('message').value);">
+</center>
+ <div id="footer">
+ <h1>by alex mackie</h1>
+ </div>
+ </body>
+</html>
