@@ -1,6 +1,8 @@
 <html>
 	<head>
 	<link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Lobster" rel="stylesheet">
+
 
 		<script type="text/javascript" src="/socket.io/socket.io.js"></script>
 		<style type="text/css">
@@ -10,11 +12,13 @@
 			 	color: white;
 			 	font-size: 100%;
 			 	font-family: 'Roboto', sans-serif;
-			 	background-color: #00E0FF;
+			 	background-color: #34AADC;
 			 	width: 60%;
 			 	border-radius: 25px;
 			 	border-spacing: 20px;
-
+			 	margin-left: 130px;
+			 	padding-left: 10px;
+			 	padding-bottom: 5px;
 			 }
 		
 	input[type=submit] {
@@ -35,20 +39,13 @@
 
 	h1 {
 		font-size: 100%;
-		font-family: 'Roboto', sans-serif;
+		font-family: 'Lobster', cursive;
 	}
 
 	#header {
-		margin-top: 20px;
-		margin-left: 700px;
+		margin-left: 325px;
+		margin-top: 50px;
 	}
-
-	#footer {
-		margin-top: 450px;
-		margin-left: 700px;
-	}
-
-
 
 
 		</style>
@@ -63,8 +60,10 @@
 			// Receive from any event
 			socket.on('chatmessage', function (data) {
 				console.log(data);
-				document.getElementById('messages').innerHTML = "" + data + 
-  "" + document.getElementById('messages').innerHTML;
+				console.log("received from server:" + data);
+				var dataString = '<br>' + data + '</br>';
+				document.getElementById('messages').innerHTML += dataString;
+
 			});
 			
 			var sendmessage = function(message) {
@@ -72,21 +71,18 @@
 				socket.emit('chatmessage', message);
 			};
 
-	
+
 		</script>	
 	</head>
  <body>
  <div id="header">
- <h1>a simple chat</h1>
+ 	<h1>lets chat...</h1>
  </div>
  <div id="messages">
  </div>
 <center>
  <input type="text" id="message" name="message">
- <input type="submit" value="submit" onclick="sendmessage(document.getElementById('message').value);">
+ <input type="submit" value="submit" id="btnsubmit" onclick="sendmessage(document.getElementById('message').value);">
 </center>
- <div id="footer">
- <h1>by alex mackie</h1>
- </div>
  </body>
 </html>
